@@ -200,9 +200,61 @@
       color: var(--text-gray);
     }
 
+    /* 모달 공통 */
+    .modal-overlay {
+      display: none;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.show { display: flex; }
+    .modal-box {
+      background: var(--secondary-bg);
+      padding: 40px;
+      border-radius: 20px;
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      max-width: 440px;
+      width: 90%;
+    }
+    .modal-box h3 { color: var(--light-blue); margin-bottom: 20px; font-size: 22px; }
+    .modal-box .contact-form { margin-top: 0; }
+    .modal-box .contact-form input { margin-bottom: 0; }
+    .modal-close { float: right; cursor: pointer; color: var(--text-gray); font-size: 24px; }
+    .auth-msg { font-size: 14px; color: var(--text-gray); margin-top: 12px; }
+    .auth-msg.error { color: #ff6b6b; }
+    .auth-msg.success { color: #51cf66; }
+    #auth-buttons, #user-menu, #admin-menu { display: flex; gap: 12px; align-items: center; }
+    #user-menu span, #admin-menu span { color: var(--text-gray); font-size: 14px; }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--light-blue);
+      color: var(--light-blue);
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      text-decoration: none;
+    }
+    .btn-outline:hover { background: var(--light-blue); color: var(--primary-bg); }
+    .request-list { margin-top: 20px; }
+    .request-item {
+      background: #001122;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(0, 212, 255, 0.1);
+    }
+    .request-item h4 { color: var(--light-blue); margin-bottom: 8px; }
+    .request-item .meta { color: var(--text-gray); font-size: 14px; margin-bottom: 8px; }
+    .request-item .meta span { margin-right: 16px; }
+    #admin-requests-section { display: none; }
+    #admin-requests-section.show { display: block; }
+
     @media (max-width: 768px) {
       header { padding: 15px 25px; }
-      .nav-links { display: none; } /* 모바일에서는 깔끔하게 숨김 */
+      .nav-links { display: none; }
       .contact-container { grid-template-columns: 1fr; }
     }
   </style>
@@ -216,8 +268,51 @@
     <a href="#projects">Projects</a>
     <a href="#team">Team</a>
     <a href="#contact" class="btn-quick">Contact Us</a>
+    <div id="auth-buttons">
+      <button type="button" class="btn-outline" onclick="openModal('loginModal')">로그인</button>
+      <button type="button" class="btn-quick" onclick="openModal('registerModal')">회원가입</button>
+    </div>
+    <div id="user-menu" style="display:none;">
+      <span id="user-email"></span>
+      <a href="#request" class="btn-outline">외주 신청</a>
+      <button type="button" class="btn-outline" onclick="logout()">로그아웃</button>
+    </div>
+    <div id="admin-menu" style="display:none;">
+      <span>관리자</span>
+      <a href="#admin-requests" class="btn-quick">신청 목록</a>
+      <button type="button" class="btn-outline" onclick="logout()">로그아웃</button>
+    </div>
   </nav>
 </header>
+
+<!-- 로그인 모달 -->
+<div id="loginModal" class="modal-overlay">
+  <div class="modal-box">
+    <span class="modal-close" onclick="closeModal('loginModal')">&times;</span>
+    <h3>로그인</h3>
+    <form class="contact-form" id="loginForm" onsubmit="return handleLogin(event)">
+      <input type="email" id="loginEmail" placeholder="이메일" required>
+      <input type="password" id="loginPassword" placeholder="비밀번호" required>
+      <p id="loginMsg" class="auth-msg"></p>
+      <button type="submit" class="send-btn">로그인</button>
+    </form>
+  </div>
+</div>
+
+<!-- 회원가입 모달 -->
+<div id="registerModal" class="modal-overlay">
+  <div class="modal-box">
+    <span class="modal-close" onclick="closeModal('registerModal')">&times;</span>
+    <h3>회원가입</h3>
+    <form class="contact-form" id="registerForm" onsubmit="return handleRegister(event)">
+      <input type="text" id="registerName" placeholder="이름" required>
+      <input type="email" id="registerEmail" placeholder="이메일" required>
+      <input type="password" id="registerPassword" placeholder="비밀번호 (6자 이상)" required minlength="6">
+      <p id="registerMsg" class="auth-msg"></p>
+      <button type="submit" class="send-btn">가입하기</button>
+    </form>
+  </div>
+</div>
 
 <section id="home" style="text-align: center;">
   <h2>안녕하세요, PJ IT COMPANY 입니다.</h2>
@@ -235,6 +330,28 @@
     <a href="https://parkbugeon1106.github.io/PJ-IT-COMPANY_COIN-WEBSITE/index.html" target="_blank" class="project-link">
       🔗 바로가기
     </a>
+  </div>
+</section>
+
+<section id="request">
+  <h2>외주 신청</h2>
+  <div class="card">
+    <p style="color: var(--text-gray); margin-bottom: 20px;">로그인 후 외주를 신청할 수 있습니다. 아래 항목을 입력해 주세요.</p>
+    <form class="contact-form" id="requestForm" onsubmit="return handleSubmitRequest(event)">
+      <input type="text" id="reqTitle" placeholder="제목 (예: 웹사이트 제작)" required>
+      <input type="text" id="reqBudget" placeholder="예산 (선택)">
+      <input type="text" id="reqContact" placeholder="연락처 (선택)">
+      <textarea id="reqDescription" rows="6" placeholder="상세 내용을 입력해 주세요." required></textarea>
+      <p id="requestMsg" class="auth-msg"></p>
+      <button type="submit" class="send-btn">신청하기</button>
+    </form>
+  </div>
+</section>
+
+<section id="admin-requests-section">
+  <h2>외주 신청 목록 (관리자)</h2>
+  <div class="card">
+    <div id="adminRequestList" class="request-list">로딩 중...</div>
   </div>
 </section>
 
@@ -285,6 +402,195 @@
 <footer>
   © 2025 PJ IT COMPANY
 </footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<script>
+  // ========== Firebase 설정 (본인 프로젝트로 교체하세요. FIREBASE_SETUP.md 참고) ==========
+  const FIREBASE_CONFIG = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT_ID.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+  };
+
+  let firebaseApp, auth, db;
+  try {
+    firebaseApp = firebase.initializeApp(FIREBASE_CONFIG);
+    auth = firebase.auth();
+    db = firebase.firestore();
+  } catch (e) {
+    console.warn('Firebase 미설정: FIREBASE_SETUP.md 참고 후 FIREBASE_CONFIG를 채워 주세요.', e);
+  }
+
+  function openModal(id) { document.getElementById(id).classList.add('show'); }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('show');
+    document.getElementById('loginMsg').textContent = '';
+    document.getElementById('registerMsg').textContent = '';
+  }
+
+  function setMsg(id, text, isError) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = text;
+    el.className = 'auth-msg ' + (isError ? 'error' : 'success');
+  }
+
+  async function checkIsAdmin(email) {
+    if (!db) return false;
+    try {
+      var snap = await db.collection('admins').doc('list').get();
+      var emails = (snap.data() && snap.data().emails) || [];
+      return Array.isArray(emails) && emails.includes(email);
+    } catch (e) { return false; }
+  }
+
+  function updateUI(user, isAdmin) {
+    var authBtns = document.getElementById('auth-buttons');
+    var userMenu = document.getElementById('user-menu');
+    var adminMenu = document.getElementById('admin-menu');
+    var requestSectionEl = document.getElementById('request');
+    var adminSection = document.getElementById('admin-requests-section');
+    if (!user) {
+      if (authBtns) authBtns.style.display = 'flex';
+      if (userMenu) userMenu.style.display = 'none';
+      if (adminMenu) adminMenu.style.display = 'none';
+      if (adminSection) adminSection.classList.remove('show');
+      return;
+    }
+    if (authBtns) authBtns.style.display = 'none';
+    var emailEl = document.getElementById('user-email');
+    if (emailEl) emailEl.textContent = user.email;
+    if (isAdmin) {
+      if (userMenu) userMenu.style.display = 'none';
+      if (adminMenu) adminMenu.style.display = 'flex';
+      if (adminSection) adminSection.classList.add('show');
+      loadAdminRequests();
+    } else {
+      if (userMenu) userMenu.style.display = 'flex';
+      if (adminMenu) adminMenu.style.display = 'none';
+      if (adminSection) adminSection.classList.remove('show');
+    }
+  }
+
+  async function onAuthState() {
+    if (!auth) return;
+    var user = auth.currentUser;
+    if (!user) {
+      updateUI(null);
+      return;
+    }
+    var isAdmin = await checkIsAdmin(user.email);
+    updateUI(user, isAdmin);
+  }
+
+  async function handleLogin(e) {
+    e.preventDefault();
+    if (!auth) { setMsg('loginMsg', 'Firebase가 설정되지 않았습니다.', true); return false; }
+    var email = document.getElementById('loginEmail').value.trim();
+    var password = document.getElementById('loginPassword').value;
+    setMsg('loginMsg', '로그인 중...', false);
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+      closeModal('loginModal');
+      document.getElementById('loginForm').reset();
+    } catch (err) {
+      var msg = err.code === 'auth/user-not-found' ? '등록되지 않은 이메일입니다.' :
+                err.code === 'auth/wrong-password' ? '비밀번호가 올바르지 않습니다.' :
+                err.code === 'auth/invalid-email' ? '올바른 이메일을 입력해 주세요.' : err.message;
+      setMsg('loginMsg', msg, true);
+    }
+    return false;
+  }
+
+  async function handleRegister(e) {
+    e.preventDefault();
+    if (!auth) { setMsg('registerMsg', 'Firebase가 설정되지 않았습니다.', true); return false; }
+    var name = document.getElementById('registerName').value.trim();
+    var email = document.getElementById('registerEmail').value.trim();
+    var password = document.getElementById('registerPassword').value;
+    setMsg('registerMsg', '가입 중...', false);
+    try {
+      var cred = await auth.createUserWithEmailAndPassword(email, password);
+      if (cred.user) await cred.user.updateProfile({ displayName: name });
+      closeModal('registerModal');
+      document.getElementById('registerForm').reset();
+    } catch (err) {
+      var msg = err.code === 'auth/email-already-in-use' ? '이미 사용 중인 이메일입니다.' :
+                err.code === 'auth/weak-password' ? '비밀번호는 6자 이상이어야 합니다.' :
+                err.code === 'auth/invalid-email' ? '올바른 이메일을 입력해 주세요.' : err.message;
+      setMsg('registerMsg', msg, true);
+    }
+    return false;
+  }
+
+  function logout() {
+    if (auth) auth.signOut();
+  }
+
+  async function handleSubmitRequest(e) {
+    e.preventDefault();
+    if (!auth || !db) { setMsg('requestMsg', 'Firebase가 설정되지 않았습니다.', true); return false; }
+    var user = auth.currentUser;
+    if (!user) { setMsg('requestMsg', '로그인이 필요합니다.', true); return false; }
+    var title = document.getElementById('reqTitle').value.trim();
+    var budget = document.getElementById('reqBudget').value.trim();
+    var contact = document.getElementById('reqContact').value.trim();
+    var description = document.getElementById('reqDescription').value.trim();
+    setMsg('requestMsg', '제출 중...', false);
+    try {
+      await db.collection('requests').add({
+        userId: user.uid,
+        userEmail: user.email,
+        userName: user.displayName || document.getElementById('registerName')?.value || user.email.split('@')[0],
+        title: title,
+        budget: budget || null,
+        contact: contact || null,
+        description: description,
+        status: '신청됨',
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+      setMsg('requestMsg', '외주 신청이 접수되었습니다.', false);
+      document.getElementById('requestForm').reset();
+    } catch (err) {
+      setMsg('requestMsg', '저장 실패: ' + err.message, true);
+    }
+    return false;
+  }
+
+  async function loadAdminRequests() {
+    var listEl = document.getElementById('adminRequestList');
+    if (!db || !listEl) return;
+    try {
+      var snap = await db.collection('requests').orderBy('createdAt', 'desc').get();
+      if (snap.empty) {
+        listEl.innerHTML = '<p style="color: var(--text-gray);">접수된 신청이 없습니다.</p>';
+        return;
+      }
+      listEl.innerHTML = snap.docs.map(function(d) {
+        var d_ = d.data();
+        var createdAt = d_.createdAt && d_.createdAt.toDate ? d_.createdAt.toDate().toLocaleString('ko-KR') : '-';
+        return '<div class="request-item">' +
+          '<h4>' + (d_.title || '(제목 없음)') + '</h4>' +
+          '<p class="meta"><span>신청자: ' + (d_.userName || d_.userEmail || '-') + '</span><span>이메일: ' + (d_.userEmail || '-') + '</span><span>' + createdAt + '</span></p>' +
+          (d_.budget ? '<p class="meta">예산: ' + d_.budget + '</p>' : '') +
+          (d_.contact ? '<p class="meta">연락처: ' + d_.contact + '</p>' : '') +
+          '<p>' + (d_.description || '').replace(/\n/g, '<br>') + '</p>' +
+          '</div>';
+      }).join('');
+    } catch (err) {
+      listEl.innerHTML = '<p class="auth-msg error">목록 로드 실패: ' + err.message + '</p>';
+    }
+  }
+
+  if (auth) {
+    auth.onAuthStateChanged(onAuthState);
+  }
+</script>
 
 </body>
 </html>
