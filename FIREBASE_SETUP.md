@@ -1,4 +1,5 @@
-# Firebase 설정 가이드 (로그인 / 외주 신청)
+# Firebase 설정 가이드 (로그인 / 외주 신청) *외주 신청은 firebase의 단점을 보완하기 위해 supabase라는 프로그램을 활용할꺼임
+
 
 ## 1. Firebase 프로젝트 만들기
 
