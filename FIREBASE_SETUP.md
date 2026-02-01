@@ -1,5 +1,9 @@
+<<<<<<< Updated upstream
 # Firebase 설정 가이드 (로그인 / 외주 신청) *외주 신청은 firebase의 단점을 보완하기 위해 supabase라는 프로그램을 활용할꺼임
 
+=======
+# Firebase 설정 가이드 (로그인 / 외주 신청)
+>>>>>>> Stashed changes
 
 ## 1. Firebase 프로젝트 만들기
 
@@ -7,10 +11,24 @@
 2. **프로젝트 추가** → 프로젝트 이름 입력 후 생성
 3. (선택) Google Analytics 사용 안 해도 됨
 
+<<<<<<< Updated upstream
 ## 2. Authentication (이메일 로그인)
 
 1. 왼쪽 메뉴 **Authentication** → **시작하기**
 2. **Sign-in method** 탭 → **이메일/비밀번호** 사용 설정
+=======
+## 2. Authentication (이메일 + Google 로그인)
+
+1. 왼쪽 메뉴 **Authentication** → **시작하기**
+2. **Sign-in method** 탭에서 다음을 **사용 설정**:
+   - **이메일/비밀번호** – 회원가입·로그인용
+   - **Google** – "Google로 로그인" 버튼용
+
+### Google 로그인 설정 (Google 선택 시)
+
+- **프로젝트 공개용 이름**과 **프로젝트 지원 이메일** 입력 후 저장
+- (이미 Google Cloud 프로젝트가 연결되어 있으면 추가 설정 없이 동작)
+>>>>>>> Stashed changes
 
 ## 3. Firestore Database
 
