@@ -1,8 +1,12 @@
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 # Firebase 설정 가이드 (로그인 / 외주 신청) *외주 신청은 firebase의 단점을 보완하기 위해 supabase라는 프로그램을 활용할꺼임
 
+=======
+# Firebase 설정 가이드 (로그인 / 외주 신청)
+>>>>>>> Stashed changes
 =======
 # Firebase 설정 가이드 (로그인 / 외주 신청)
 >>>>>>> Stashed changes
@@ -22,11 +26,14 @@
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 ## 2. Authentication (이메일 로그인)
 
 1. 왼쪽 메뉴 **Authentication** → **시작하기**
 2. **Sign-in method** 탭 → **이메일/비밀번호** 사용 설정
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 =======
@@ -44,6 +51,9 @@
 - (이미 Google Cloud 프로젝트가 연결되어 있으면 추가 설정 없이 동작)
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
