@@ -19,12 +19,11 @@
       font-display: swap;
     }
 
-    /* ✅ 고급스러운 로열 블루 테마 */
     :root {
-      --primary-bg: #000b1a;    /* 깊은 어두운 파랑 */
-      --secondary-bg: #001a33;  /* 카드 및 섹션 배경 */
-      --accent-blue: #007bff;   /* 포인트 블루 */
-      --light-blue: #00d4ff;    /* 강조 텍스트 */
+      --primary-bg: #000b1a;
+      --secondary-bg: #001a33;
+      --accent-blue: #007bff;
+      --light-blue: #00d4ff;
       --text-white: #ffffff;
       --text-gray: #b0c4de;
     }
@@ -39,7 +38,6 @@
       line-height: 1.6;
     }
 
-    /* ✅ 헤더 및 우측 상단 바로가기 */
     header {
       position: fixed;
       top: 0; left: 0; width: 100%;
@@ -77,7 +75,6 @@
       color: var(--light-blue);
     }
 
-    /* 강조된 바로가기 버튼 */
     .btn-quick {
       background: var(--accent-blue);
       padding: 10px 20px;
@@ -108,7 +105,6 @@
       margin-bottom: 40px;
     }
 
-    /* 프로젝트 링크 스타일 */
     .project-link {
       display: inline-block;
       margin-top: 15px;
@@ -126,7 +122,6 @@
       color: var(--primary-bg);
     }
 
-    /* 팀 리스트 스타일 */
     ul {
       list-style: none;
       margin-top: 15px;
@@ -146,7 +141,6 @@
       font-weight: bold;
     }
 
-    /* ✅ Contact 섹션 */
     .contact-container {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -200,7 +194,6 @@
       color: var(--text-gray);
     }
 
-    /* 모달 공통 */
     .modal-overlay {
       display: none;
       position: fixed; top: 0; left: 0; right: 0; bottom: 0;
@@ -280,21 +273,20 @@
   <h1 onclick="window.scrollTo(0,0)">PJ IT COMPANY</h1>
   <nav class="nav-links">
     <a href="#home">Home</a>
-    <a href="#projects">Projects</a>
+    <a href="#about">About</a>
+    <a href="#technology">Technology</a>
     <a href="#team">Team</a>
-    <a href="#contact" class="btn-quick">Contact Us</a>
+    <a href="#contact" class="btn-quick">Contact</a>
     <div id="auth-buttons">
       <button type="button" class="btn-outline" onclick="openModal('loginModal')">로그인</button>
       <button type="button" class="btn-quick" onclick="openModal('registerModal')">회원가입</button>
     </div>
     <div id="user-menu" style="display:none;">
       <span id="user-email"></span>
-      <a href="#request" class="btn-outline">외주 신청</a>
       <button type="button" class="btn-outline" onclick="logout()">로그아웃</button>
     </div>
     <div id="admin-menu" style="display:none;">
       <span>관리자</span>
-      <a href="#admin-requests" class="btn-quick">신청 목록</a>
       <button type="button" class="btn-outline" onclick="logout()">로그아웃</button>
     </div>
   </nav>
@@ -333,66 +325,99 @@
   </div>
 </div>
 
+<!-- ✅ Home 섹션 -->
 <section id="home" style="text-align: center;">
   <h2>안녕하세요, PJ IT COMPANY 입니다.</h2>
   <img src="logo.png" alt="PJ IT COMPANY 로고" width="160" />
   <p style="font-family:'Pretendard'; font-size:32px; margin-top:20px; font-weight: 600;">
     기술과 투자로 세상을 바꾸는 IT 기업
   </p>
+  <br><br>
+  <p style="font-size: 18px; color: var(--text-gray); max-width: 640px; margin: 0 auto; line-height: 2;">
+    우리는 AI 시스템, 자동화 솔루션,<br>
+    데이터 기반 플랫폼을 구축하며<br>
+    기술을 통해 실제 문제를 해결하는 것을 목표로 합니다.
+  </p>
 </section>
 
-<section id="projects">
-  <h2>프로젝트</h2>
-  <div class="card" style="text-align: center;">
-    <h3 style="font-size: 24px; margin-bottom: 10px;">실시간 코인 가격 웹사이트</h3>
-    <p style="color: var(--text-gray);">실시간 데이터 트래킹 시스템</p>
-    <a href="https://parkbugeon1106.github.io/PJ-IT-COMPANY_COIN-WEBSITE/index.html" target="_blank" class="project-link">
-      🔗 바로가기
-    </a>
-  </div>
-</section>
-
-<section id="request">
-  <h2>외주 신청</h2>
+<!-- ✅ About 섹션 -->
+<section id="about">
+  <h2>About</h2>
   <div class="card">
-    <p style="color: var(--text-gray); margin-bottom: 20px;">로그인 후 외주를 신청할 수 있습니다. 아래 항목을 입력해 주세요.</p>
-    <form class="contact-form" id="requestForm" onsubmit="return handleSubmitRequest(event)">
-      <input type="text" id="reqTitle" placeholder="제목 (예: 웹사이트 제작)" required>
-      <input type="text" id="reqBudget" placeholder="예산 (선택)">
-      <input type="text" id="reqContact" placeholder="연락처 (선택)">
-      <textarea id="reqDescription" rows="6" placeholder="상세 내용을 입력해 주세요." required></textarea>
-      <p id="requestMsg" class="auth-msg"></p>
-      <button type="submit" class="send-btn">신청하기</button>
-    </form>
+    <p>
+      PJ IT COMPANY는 AI 기술과 소프트웨어를 활용하여
+      실제 문제를 해결하는 서비스를 연구하고 개발합니다.
+    </p>
+
+    <br>
+
+    <p>
+      머신러닝, 웹 플랫폼 개발,
+      서버 인프라 구축,
+      실시간 데이터 처리 기술을 기반으로
+      확장 가능한 시스템을 설계합니다.
+    </p>
+
+    <br>
+
+    <p>
+      기술을 단순히 사용하는 것을 넘어,
+      새로운 가치를 창출하고
+      더 나은 미래를 만드는 것을 목표로 합니다.
+    </p>
   </div>
 </section>
 
-<section id="admin-requests-section">
-  <h2>외주 신청 목록 (관리자)</h2>
+<!-- ✅ Technology 섹션 -->
+<section id="technology">
+  <h2>Technology</h2>
   <div class="card">
-    <div id="adminRequestList" class="request-list">로딩 중...</div>
+    <ul>
+      <li>Artificial Intelligence</li>
+      <li>Machine Learning</li>
+      <li>Software Development</li>
+      <li>Backend Engineering</li>
+      <li>Web Applications</li>
+      <li>Cloud Infrastructure</li>
+      <li>Real-Time Data Processing</li>
+      <li>Automation Systems</li>
+    </ul>
   </div>
 </section>
 
+<!-- ✅ Team 섹션 -->
 <section id="team">
-  <h2>팀</h2>
+  <h2>Our Team</h2>
   <div class="card">
     <div style="margin-bottom: 40px;">
-      <p style="font-size: 22px;"><b>박부건</b> – CEO / AI · Web, Software Developer</p>
+      <p style="font-size: 22px; margin-bottom: 4px;"><b>Park Bugeon</b></p>
+      <p style="color: var(--light-blue); font-size: 15px; margin-bottom: 12px;">Founder &amp; AI Engineer</p>
+      <p style="color: var(--text-gray); margin-bottom: 12px;">
+        인공지능 시스템 개발, 머신러닝 모델 설계, 실시간 데이터 처리 시스템 구축, 백엔드 아키텍처 설계를 담당합니다.
+      </p>
       <ul>
-        <li>오랜 경험을 바탕으로 다양한 AI 제작</li>
-        <li>머신 러닝, AI 코드 검수, 기능 구현, 서버 제작/관리</li>
-        <li>사용 언어: Python, C, C++, Java, JavaScript, HTML, CSS, PHP</li>
+        <li>AI Systems Development</li>
+        <li>Machine Learning Engineering</li>
+        <li>Backend Infrastructure</li>
+        <li>Real-Time Data Processing</li>
+        <li>Software Architecture</li>
+        <li>Competitive Programming</li>
       </ul>
     </div>
 
     <div>
-      <p style="font-size: 22px;"><b>정우진</b> – CEO / AI · Web, Hardware Developer</p>
+      <p style="font-size: 22px; margin-bottom: 4px;"><b>Jeong Woojin</b></p>
+      <p style="color: var(--light-blue); font-size: 15px; margin-bottom: 12px;">Co-Founder &amp; Systems Engineer</p>
+      <p style="color: var(--text-gray); margin-bottom: 12px;">
+        하드웨어 시스템 설계, 임베디드 개발, 센서 기반 시스템 구축, AI 기반 디바이스 개발을 담당합니다.
+      </p>
       <ul>
-        <li>AI 기반 하드웨어 시스템 및 로직 설계</li>
-        <li>AI 시스템, 임베디드 시스템, 센서 제어, 디바이스 개발</li>
-        <li>사용 언어: Python, C, C++, Java, JavaScript, HTML</li>
-        <li>Arduino, Raspberry Pi 등 다양한 플랫폼 경험</li>
+        <li>Embedded Systems</li>
+        <li>Hardware Development</li>
+        <li>Sensor Integration</li>
+        <li>IoT Systems</li>
+        <li>AI Hardware Solutions</li>
+        <li>Raspberry Pi &amp; Arduino Platforms</li>
       </ul>
     </div>
   </div>
@@ -426,7 +451,6 @@
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 <script>
-  // ========== Firebase 설정 (본인 프로젝트로 교체하세요. FIREBASE_SETUP.md 참고) ==========
   const FIREBASE_CONFIG = {
     apiKey: "AIzaSyD6Nm7e4wH6E2eeZo7PhsLZnqD3pK-mDrc",
     authDomain: "pj-it-site-d6709.firebaseapp.com",
@@ -472,7 +496,6 @@
     var authBtns = document.getElementById('auth-buttons');
     var userMenu = document.getElementById('user-menu');
     var adminMenu = document.getElementById('admin-menu');
-    var requestSectionEl = document.getElementById('request');
     var adminSection = document.getElementById('admin-requests-section');
     if (!user) {
       if (authBtns) authBtns.style.display = 'flex';
@@ -499,10 +522,7 @@
   async function onAuthState() {
     if (!auth) return;
     var user = auth.currentUser;
-    if (!user) {
-      updateUI(null);
-      return;
-    }
+    if (!user) { updateUI(null); return; }
     var isAdmin = await checkIsAdmin(user.email);
     updateUI(user, isAdmin);
   }
